@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+  <% include ../../layouts/user/user_header %>
+  <style>
+    .nav-link {
+      font-weight: bold;
+    }
+  </style>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .mobile-container {
+      background-color: #1e1445;
+      color: white;
+      position: relative;
+      text-align: center;
+    }
+
+    .topnav {
+      overflow: hidden;
+      background-color: #1e1445;
+      position: relative;
+    }
+
+    .topnav #myLinks {
+      display: none;
+    }
+
+    .topnav a {
+      color: white;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+      display: block;
+    }
+
+    .topnav a.icon {
+      background: black;
+      display: block;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    .topnav a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+
+    .active {
+      color: white;
+    }
+
+    @media only screen and (max-width: 1023px) {
+      .topnav {
+        visibility: visible;
+      }
+    }
+    @media only screen and (min-width: 1024px) {
+      .topnav {
+        visibility: hidden;
+      }
+    }
+  </style>
+  <body class="">
+    <div class="wrapper">
+      <div
+        class="sidebar"
+        data-color="purple"
+        data-background-color="white"
+        data-image="../assets/img/sidebar-1.jpg"
+        style="background-color: #efe6d1"
+      >
+        <div class="logo" style="background-color: #efe6d1">
+          <a href="/announcement">
+            <img
+              src="/images/images.png"
+              style="width: 250px; height: 160px; margin-right: 100px"
+            />
+          </a>
+        </div>
+        <div class="sidebar-wrapper" style="background-color: #efe6d1">
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/user">
+                <i class="material-icons">person</i>
+                <p>User Profile</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/view_users">
+                <i class="material-icons">people</i>
+                <p>View Users</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/user_business">
+                <i class="material-icons">book</i>
+                <p>Business Directory</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">
+                <i class="material-icons" style="color: red">logout</i>
+                <p style="color: red">Logout</p>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- Top Navigation Menu -->
+      <div class="mobile-container">
+        <div class="topnav" style="color: white">
+          <a href="#home" class="active"><h5>Licet ALUMNI</h5></a>
+          <div id="myLinks" style="color: white">
+            <a class="nav-link" href="./user">
+              <i class="material-icons">person</i>
+              <p>User Profile</p>
+            </a>
+            <a class="nav-link" href="/view_users">
+              <i class="material-icons">people</i>
+              <p>View Users</p>
+            </a>
+            <a class="nav-link" href="/user_business">
+              <i class="material-icons">book</i>
+              <p>Business Directory</p>
+            </a>
+            <a class="nav-link" href="/logout">
+              <i class="material-icons" style="color: red">logout</i>
+              <p style="color: red">Logout</p>
+            </a>
+          </div>
+          <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+          </a>
+        </div>
+      </div>
+      <div class="main-panel">
+        <div class="content">
+          <div class="container-fluid">
+            <div class="card" style="color: #1e1445; margin-top: -5%">
+              <div
+                class="card-header"
+                style="background-color: #1e1445; color: white !important"
+              >
+                <h3 class="card-title" style="color: white">Announcements</h3>
+              </div>
+              <div class="card-body">
+                <% if(results != null) { %> <% for(let v1 in results) {%>
+                <div class="row">
+                  <div class="col">
+                    <div
+                      class="alert"
+                      style="
+                        background-color: #efe6d1;
+                        color: #1e1445 !important;
+                      "
+                    >
+                      <button
+                        type="button"
+                        class="close"
+                        data-dismiss="alert"
+                        aria-label="Close"
+                        style="color: black"
+                      >
+                        <i class="material-icons" style="color: black">close</i>
+                      </button>
+                      <br />
+                      <div
+                        class="row flex"
+                        style="
+                          background-color: #1e1445;
+                          color: white;
+                          height: 40px;
+                          align-items: center;
+                          margin-top: 20px;
+                        "
+                      >
+                        <h3
+                          style="
+                            margin-left: 10px;
+                            margin-top: 4px;
+                            font-weight: bolder;
+                          "
+                        >
+                          <%=results[v1].Title.toUpperCase() %>
+                        </h3>
+                      </div>
+                      <br />
+                      <span>
+                        <h4 class="card-text"><%=results[v1].Description %></h4>
+                        <br />
+                        <p class="card-text">
+                          Date Posted : <%=results[v1].Date.toDateString() %>
+                        </p>
+                      </span>
+                      <div
+                        class="row"
+                        style="
+                          background-color: #1e1445;
+                          height: 10px;
+                          margin-top: 8px;
+                        "
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+                <%}%> <%}%> <% if(results.length == 0) { %>
+                <a>No Announcements</a>
+                <%}%>
+              </div>
+              <!-- <div class="col-md-12">
+                <div class="places-buttons">
+                  <div class="row">
+                    <div class="col-md-6 ml-auto mr-auto text-center">
+                      <h4 class="card-title">
+                        Notifications Places
+                        <p class="category">Click to view notifications</p>
+                      </h4>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-8 col-md-10 ml-auto mr-auto">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <button
+                            class="btn btn-primary btn-block"
+                            onclick="md.showNotification('top','left')"
+                          >
+                            Top Left
+                          </button>
+                        </div>
+                        <div class="col-md-4">
+                          <button
+                            class="btn btn-primary btn-block"
+                            onclick="md.showNotification('top','center')"
+                          >
+                            Top Center
+                          </button>
+                        </div>
+                        <div class="col-md-4">
+                          <button
+                            class="btn btn-primary btn-block"
+                            onclick="md.showNotification('top','right')"
+                          >
+                            Top Right
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-8 col-md-10 ml-auto mr-auto">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <button
+                            class="btn btn-primary btn-block"
+                            onclick="md.showNotification('bottom','left')"
+                          >
+                            Bottom Left
+                          </button>
+                        </div>
+                        <div class="col-md-4">
+                          <button
+                            class="btn btn-primary btn-block"
+                            onclick="md.showNotification('bottom','center')"
+                          >
+                            Bottom Center
+                          </button>
+                        </div>
+                        <div class="col-md-4">
+                          <button
+                            class="btn btn-primary btn-block"
+                            onclick="md.showNotification('bottom','right')"
+                          >
+                            Bottom Right
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <% include ../../layouts/user/scripts %>
+
+    <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+    <script src="../assets/demo/demo.js"></script>
+    <script>
+      $(document).ready(function () {
+        $().ready(function () {
+          $sidebar = $(".sidebar");
+
+          $sidebar_img_container = $sidebar.find(".sidebar-background");
+
+          $full_page = $(".full-page");
+
+          $sidebar_responsive = $("body > .navbar-collapse");
+
+          window_width = $(window).width();
+
+          fixed_plugin_open = $(
+            ".sidebar .sidebar-wrapper .nav li.active a p"
+          ).html();
+
+          if (window_width > 767 && fixed_plugin_open == "Dashboard") {
+            if ($(".fixed-plugin .dropdown").hasClass("show-dropdown")) {
+              $(".fixed-plugin .dropdown").addClass("open");
+            }
+          }
+
+          $(".fixed-plugin a").click(function (event) {
+            // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
+            if ($(this).hasClass("switch-trigger")) {
+              if (event.stopPropagation) {
+                event.stopPropagation();
+              } else if (window.event) {
+                window.event.cancelBubble = true;
+              }
+            }
+          });
+
+          $(".fixed-plugin .active-color span").click(function () {
+            $full_page_background = $(".full-page-background");
+
+            $(this).siblings().removeClass("active");
+            $(this).addClass("active");
+
+            var new_color = $(this).data("color");
+
+            if ($sidebar.length != 0) {
+              $sidebar.attr("data-color", new_color);
+            }
+
+            if ($full_page.length != 0) {
+              $full_page.attr("filter-color", new_color);
+            }
+
+            if ($sidebar_responsive.length != 0) {
+              $sidebar_responsive.attr("data-color", new_color);
+            }
+          });
+
+          $(".fixed-plugin .background-color .badge").click(function () {
+            $(this).siblings().removeClass("active");
+            $(this).addClass("active");
+
+            var new_color = $(this).data("background-color");
+
+            if ($sidebar.length != 0) {
+              $sidebar.attr("data-background-color", new_color);
+            }
+          });
+
+          $(".fixed-plugin .img-holder").click(function () {
+            $full_page_background = $(".full-page-background");
+
+            $(this).parent("li").siblings().removeClass("active");
+            $(this).parent("li").addClass("active");
+
+            var new_image = $(this).find("img").attr("src");
+
+            if (
+              $sidebar_img_container.length != 0 &&
+              $(".switch-sidebar-image input:checked").length != 0
+            ) {
+              $sidebar_img_container.fadeOut("fast", function () {
+                $sidebar_img_container.css(
+                  "background-image",
+                  'url("' + new_image + '")'
+                );
+                $sidebar_img_container.fadeIn("fast");
+              });
+            }
+
+            if (
+              $full_page_background.length != 0 &&
+              $(".switch-sidebar-image input:checked").length != 0
+            ) {
+              var new_image_full_page = $(".fixed-plugin li.active .img-holder")
+                .find("img")
+                .data("src");
+
+              $full_page_background.fadeOut("fast", function () {
+                $full_page_background.css(
+                  "background-image",
+                  'url("' + new_image_full_page + '")'
+                );
+                $full_page_background.fadeIn("fast");
+              });
+            }
+
+            if ($(".switch-sidebar-image input:checked").length == 0) {
+              var new_image = $(".fixed-plugin li.active .img-holder")
+                .find("img")
+                .attr("src");
+              var new_image_full_page = $(".fixed-plugin li.active .img-holder")
+                .find("img")
+                .data("src");
+
+              $sidebar_img_container.css(
+                "background-image",
+                'url("' + new_image + '")'
+              );
+              $full_page_background.css(
+                "background-image",
+                'url("' + new_image_full_page + '")'
+              );
+            }
+
+            if ($sidebar_responsive.length != 0) {
+              $sidebar_responsive.css(
+                "background-image",
+                'url("' + new_image + '")'
+              );
+            }
+          });
+
+          $(".switch-sidebar-image input").change(function () {
+            $full_page_background = $(".full-page-background");
+
+            $input = $(this);
+
+            if ($input.is(":checked")) {
+              if ($sidebar_img_container.length != 0) {
+                $sidebar_img_container.fadeIn("fast");
+                $sidebar.attr("data-image", "#");
+              }
+
+              if ($full_page_background.length != 0) {
+                $full_page_background.fadeIn("fast");
+                $full_page.attr("data-image", "#");
+              }
+
+              background_image = true;
+            } else {
+              if ($sidebar_img_container.length != 0) {
+                $sidebar.removeAttr("data-image");
+                $sidebar_img_container.fadeOut("fast");
+              }
+
+              if ($full_page_background.length != 0) {
+                $full_page.removeAttr("data-image", "#");
+                $full_page_background.fadeOut("fast");
+              }
+
+              background_image = false;
+            }
+          });
+
+          $(".switch-sidebar-mini input").change(function () {
+            $body = $("body");
+
+            $input = $(this);
+
+            if (md.misc.sidebar_mini_active == true) {
+              $("body").removeClass("sidebar-mini");
+              md.misc.sidebar_mini_active = false;
+
+              $(".sidebar .sidebar-wrapper, .main-panel").perfectScrollbar();
+            } else {
+              $(".sidebar .sidebar-wrapper, .main-panel").perfectScrollbar(
+                "destroy"
+              );
+
+              setTimeout(function () {
+                $("body").addClass("sidebar-mini");
+
+                md.misc.sidebar_mini_active = true;
+              }, 300);
+            }
+
+            // we simulate the window Resize so the charts will get updated in realtime.
+            var simulateWindowResize = setInterval(function () {
+              window.dispatchEvent(new Event("resize"));
+            }, 180);
+
+            // we stop the simulation of Window Resize after the animations are completed
+            setTimeout(function () {
+              clearInterval(simulateWindowResize);
+            }, 1000);
+          });
+        });
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+        //init DateTimePickers
+        md.initFormExtendedDatetimepickers();
+      });
+    </script>
+    <script>
+      function myFunction() {
+        var x = document.getElementById("myLinks");
+        if (x.style.display === "block") {
+          x.style.display = "none";
+        } else {
+          x.style.display = "block";
+        }
+      }
+    </script>
+  </body>
+</html>

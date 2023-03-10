@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		.inv {
+		  display: none;
+		}
+	  </style>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- Font-->
+	<link rel="stylesheet" type="text/css" href="css/montserrat-font.css">
+	<link rel="stylesheet" type="text/css" href="fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+	<!-- Main Style Css -->
+    <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body class="form-v10">
+	<div class="page-content"  style="background-color: #efe6d1 !important;margin-top: -85px;">
+		<div class="form-v10-content">
+			<form class="form-detail" action="/register_user" method="post" id="myform">
+				<div class="form-left">
+					<h2>General Information</h2>
+					<div class="form-group">
+						<div class="form-row form-row-1">
+                            <div class="col">							
+                                <input type="text" name="Name" id="Name" class="input-text" placeholder="Name" required>
+                            </div>
+                        </div>
+					</div>
+					<div class="form-row">
+						<select name="gender" id="gender">
+							<option class="option" value="title">Gender</option>
+						    <option class="option" value="male">Male</option>
+						    <option class="option" value="Female">Female</option>
+						    <option class="option" value="Others">Others</option>
+						</select>
+						<span class="select-btn">
+						  	<i class="zmdi zmdi-chevron-down"></i>
+						</span>	
+					</div>
+					<div class="form-row form-row-1">
+							<input type="text" name="DOB" class="zip" id="DOB" placeholder="Date of Birth" onfocus="(this.type = 'date')" required>
+					</div>
+					<div class="form-row">
+						<input type="text" name="regno" id="regno" class="company" placeholder="Register Number" required>
+					</div>
+					<div class="form-row">
+							<input type="text" name="email_id" class="company" id="email_id" 
+							required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}" placeholder="Email" required>
+					</div>
+					<div class="form-row">
+						<input type="password" name="password" class="company" id="password" placeholder="Password" required>
+					</div>
+
+					<div class="form-row form-row-1">
+						<input type="text" name="mobile_no" class="company" id="mobile_no" placeholder="Contact No" required>
+					</div>
+
+					<div class="form-row form-row-1">
+						<input type="text" name="linked_in" class="company" id="linked_in" placeholder="LinkedIn Profile" required>
+					</div>
+
+				</div>
+				<div class="form-right">
+					<h2>Academic Details</h2>
+					<div class="form-row form-row-2">
+						<select name="course" id="course" required>
+							<option value="Course">Course</option>
+							<option value="B.E">B.E</option>
+							<option value="B.Tech">B.Tech</option>
+						</select>
+						<span class="select-btn">
+							  <i class="zmdi zmdi-chevron-down" style="color: white;"></i>
+						</span>
+						</div>
+						<div class="form-row form-row-2">
+							<select name="department" id="department" required>
+								<option value="Department">Department</option>
+								<option value="CSE">CSE</option>
+								<option value="Mech">Mech</option>
+								<option value="IT">IT</option>
+								<option value="ECE">ECE</option>
+								<option value="EEE">EEE</option>
+							</select>
+							<span class="select-btn">
+								  <i class="zmdi zmdi-chevron-down"></i>
+							</span>
+							</div>
+					<div class="form-group">
+						<div class="form-row form-row-1">
+							<select name="BoS" id="BoS" required>
+								<option value="Batch of Study">Batch of Study</option>
+								<option value="2010-2014">2010-2014</option>
+								<option value="2011-2015">2011-2015</option>
+								<option value="2012-2016">2012-2016</option>
+								<option value="2013-2017">2013-2017</option>
+								<option value="2014-2018">2014-2018</option>
+								<option value="2015-2019">2015-2019</option>
+								<option value="2016-2020">2016-2020</option>
+								<option value="2017-2021">2017-2021</option>
+								<option value="2018-2022">2018-2022</option>
+
+							</select>
+							<span class="select-btn">
+								  <i class="zmdi zmdi-chevron-down" style="color: white;"></i>
+							</span>
+							</div>
+					</div>
+					<h2>Current Status (Please select from the options below):</h2>
+					<div class="form-group">
+						<div class="form-row form-row-1">
+						  <div class="form-group">
+							<select
+							  id="target"
+							  class="form-control pt-1"
+							  name="current_status"
+							  id="current_status" required>
+							  <option value="">Current position</option>
+							  <option value="1">Working</option>
+							  <option value="2">Studying</option>
+							  <option value="3">Entrepreneur</option>
+							  <option value="4">Others</option>
+							</select>
+							<span class="select-btn">
+								<i class="zmdi zmdi-chevron-down"></i>
+						  </span>
+						  </div>
+						</div>
+					  </div>
+					  <!-- Current Status Option End -->
+	  
+					  <!-- Current Status Start -->
+	  
+					  <!-- Working Form Start-->
+					  <br/>
+					  <div id="1" class="inv">
+						<div class="row">
+						  <div class="form-row form-row-1">
+							<div class="form-group">
+							  <input
+								type="text"
+								class="form-control"
+								name="designation_working"
+								id="designation_working"
+								placeholder="Designation"
+							  />
+							</div>
+						  </div>
+						  <div class="form-row form-row-1">
+							<div class="form-group">
+							  <input
+								type="text"
+								class="form-control"
+								name="workdomain_working"
+								id="workdomain_working"
+								placeholder="Work Domain"
+							  />
+							</div>
+						  </div>
+						</div>
+						<div class="row">
+						  <div class="form-row form-row-1">
+							<div class="form-group">
+							  <input
+								type="text"
+								class="form-control"
+								name="company_name_working"
+								id="company_name_working"
+								placeholder="Company Name"
+							  />
+							</div>
+						  </div>
+						  <div class="form-row form-row-1">
+							<div class="form-group">
+							  <input
+								type="text"
+								class="form-control"
+								name="company_address_working"
+								id="company_address_working"
+								placeholder="Company Address"
+							  />
+							</div>
+						  </div>
+						</div>
+					  </div>
+					  <!-- Working Form End -->
+	  
+					  <!-- Studying Form Start-->
+					  <div id="2" class="inv">
+						<div class="row">
+						  <div class="form-row form-row-1">
+							<div class="form-group">
+							  <input
+								type="text"
+								class="form-control"
+								name="course_name_studying"
+								id="course_name_studying"
+								placeholder="Name of course"
+							  />
+							</div>
+						  </div>
+						  <div class="form-row form-row-1">
+							<div class="form-group">
+							  <input
+								type="text"
+								class="form-control"
+								name="university_name_studying"
+								id="university_name_studying"
+								placeholder="Name of Institution"
+							  />
+							</div>
+						  </div>
+						</div>
+						<div class="row">
+						  <div class="form-row form-row-1">
+							<div class="form-group">
+							  <input
+								type="text"
+								class="form-control"
+								name="institute_location_studying"
+								id="institute_location_studying"
+								placeholder="Location"
+							  />
+							</div>
+						  </div>
+						</div>
+					  </div>
+					  <!-- Studying Form End -->
+	  
+					  <!-- Enterpreneur Form Start -->
+					  <div id="3" class="inv">
+						<div class="row">
+						  <div class="form-row form-row-1">
+							<div class="form-group">
+							  <input
+								type="text"
+								class="form-control"
+								name="designation_ent"
+								id="designation_ent"
+								placeholder="Designation"
+							  />
+							</div>
+						  </div>
+						  <div class="form-row form-row-1">
+							<div class="form-group">
+							  <input
+								type="text"
+								class="form-control"
+								name="workdomain_ent"
+								id="workdomain_ent"
+								placeholder="Work Domain"
+							  />
+							</div>
+						  </div>
+						</div>
+						<div class="row">
+						  <div class="form-row form-row-1">
+							<div class="form-group">
+							  <input
+								type="text"
+								class="form-control"
+								name="company_name_ent"
+								id="company_name_ent"
+								placeholder="Company Name"
+							  />
+							</div>
+						  </div>
+						  <div class="form-row form-row-1">
+							<div class="form-group">
+							  <input
+								type="text"
+								class="form-control"
+								name="company_address_ent"
+								id="company_address_ent"
+								placeholder="Company Address"
+							  />
+							</div>
+						  </div>
+						</div>
+					  </div>
+					  <!-- Enterpreneur Form End -->
+	  
+					  <!-- Others Form Start -->
+					  <div id="4" class="inv">
+						<div class="row">
+						  <div class="form-row form-row-1">
+							<div class="form-group">
+							  <input
+								type="text"
+								class="form-control"
+								name="others"
+								id="others"
+								placeholder="Specify your status"
+							  />
+							</div>
+						  </div>
+						</div>
+					  </div>
+					<div class="form-row-last">
+						<input type="submit" name="register" class="register" value="Register">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script>
+      document.getElementById("target").addEventListener("change", function () {
+        "use strict";
+        var vis = document.querySelector(".vis"),
+          target = document.getElementById(this.value);
+        if (vis !== null) {
+          vis.className = "inv";
+        }
+        if (target !== null) {
+          target.className = "vis";
+        }
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+        $().ready(function () {
+          $sidebar = $(".sidebar");
+
+          $sidebar_img_container = $sidebar.find(".sidebar-background");
+
+          $full_page = $(".full-page");
+
+          $sidebar_responsive = $("body > .navbar-collapse");
+
+          window_width = $(window).width();
+
+          fixed_plugin_open = $(
+            ".sidebar .sidebar-wrapper .nav li.active a p"
+          ).html();
+
+          if (window_width > 767 && fixed_plugin_open == "Dashboard") {
+            if ($(".fixed-plugin .dropdown").hasClass("show-dropdown")) {
+              $(".fixed-plugin .dropdown").addClass("open");
+            }
+          }
+
+          $(".fixed-plugin a").click(function (event) {
+            // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
+            if ($(this).hasClass("switch-trigger")) {
+              if (event.stopPropagation) {
+                event.stopPropagation();
+              } else if (window.event) {
+                window.event.cancelBubble = true;
+              }
+            }
+          });
+
+          $(".fixed-plugin .active-color span").click(function () {
+            $full_page_background = $(".full-page-background");
+
+            $(this).siblings().removeClass("active");
+            $(this).addClass("active");
+
+            var new_color = $(this).data("color");
+
+            if ($sidebar.length != 0) {
+              $sidebar.attr("data-color", new_color);
+            }
+
+            if ($full_page.length != 0) {
+              $full_page.attr("filter-color", new_color);
+            }
+
+            if ($sidebar_responsive.length != 0) {
+              $sidebar_responsive.attr("data-color", new_color);
+            }
+          });
+
+          $(".fixed-plugin .background-color .badge").click(function () {
+            $(this).siblings().removeClass("active");
+            $(this).addClass("active");
+
+            var new_color = $(this).data("background-color");
+
+            if ($sidebar.length != 0) {
+              $sidebar.attr("data-background-color", new_color);
+            }
+          });
+
+          $(".fixed-plugin .img-holder").click(function () {
+            $full_page_background = $(".full-page-background");
+
+            $(this).parent("li").siblings().removeClass("active");
+            $(this).parent("li").addClass("active");
+
+            var new_image = $(this).find("img").attr("src");
+
+            if (
+              $sidebar_img_container.length != 0 &&
+              $(".switch-sidebar-image input:checked").length != 0
+            ) {
+              $sidebar_img_container.fadeOut("fast", function () {
+                $sidebar_img_container.css(
+                  "background-image",
+                  'url("' + new_image + '")'
+                );
+                $sidebar_img_container.fadeIn("fast");
+              });
+            }
+
+            if (
+              $full_page_background.length != 0 &&
+              $(".switch-sidebar-image input:checked").length != 0
+            ) {
+              var new_image_full_page = $(".fixed-plugin li.active .img-holder")
+                .find("img")
+                .data("src");
+
+              $full_page_background.fadeOut("fast", function () {
+                $full_page_background.css(
+                  "background-image",
+                  'url("' + new_image_full_page + '")'
+                );
+                $full_page_background.fadeIn("fast");
+              });
+            }
+
+            if ($(".switch-sidebar-image input:checked").length == 0) {
+              var new_image = $(".fixed-plugin li.active .img-holder")
+                .find("img")
+                .attr("src");
+              var new_image_full_page = $(".fixed-plugin li.active .img-holder")
+                .find("img")
+                .data("src");
+
+              $sidebar_img_container.css(
+                "background-image",
+                'url("' + new_image + '")'
+              );
+              $full_page_background.css(
+                "background-image",
+                'url("' + new_image_full_page + '")'
+              );
+            }
+
+            if ($sidebar_responsive.length != 0) {
+              $sidebar_responsive.css(
+                "background-image",
+                'url("' + new_image + '")'
+              );
+            }
+          });
+
+          $(".switch-sidebar-image input").change(function () {
+            $full_page_background = $(".full-page-background");
+
+            $input = $(this);
+
+            if ($input.is(":checked")) {
+              if ($sidebar_img_container.length != 0) {
+                $sidebar_img_container.fadeIn("fast");
+                $sidebar.attr("data-image", "#");
+              }
+
+              if ($full_page_background.length != 0) {
+                $full_page_background.fadeIn("fast");
+                $full_page.attr("data-image", "#");
+              }
+
+              background_image = true;
+            } else {
+              if ($sidebar_img_container.length != 0) {
+                $sidebar.removeAttr("data-image");
+                $sidebar_img_container.fadeOut("fast");
+              }
+
+              if ($full_page_background.length != 0) {
+                $full_page.removeAttr("data-image", "#");
+                $full_page_background.fadeOut("fast");
+              }
+
+              background_image = false;
+            }
+          });
+
+          $(".switch-sidebar-mini input").change(function () {
+            $body = $("body");
+
+            $input = $(this);
+
+            if (md.misc.sidebar_mini_active == true) {
+              $("body").removeClass("sidebar-mini");
+              md.misc.sidebar_mini_active = false;
+
+              $(".sidebar .sidebar-wrapper, .main-panel").perfectScrollbar();
+            } else {
+              $(".sidebar .sidebar-wrapper, .main-panel").perfectScrollbar(
+                "destroy"
+              );
+
+              setTimeout(function () {
+                $("body").addClass("sidebar-mini");
+
+                md.misc.sidebar_mini_active = true;
+              }, 300);
+            }
+
+            // we simulate the window Resize so the charts will get updated in realtime.
+            var simulateWindowResize = setInterval(function () {
+              window.dispatchEvent(new Event("resize"));
+            }, 180);
+
+            // we stop the simulation of Window Resize after the animations are completed
+            setTimeout(function () {
+              clearInterval(simulateWindowResize);
+            }, 1000);
+          });
+        });
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+        //init DateTimePickers
+        md.initFormExtendedDatetimepickers();
+      });
+    </script>
+	  </script>
+</body>
+
+</html>

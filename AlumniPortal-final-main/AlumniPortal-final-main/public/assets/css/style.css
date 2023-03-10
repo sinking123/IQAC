@@ -1,0 +1,145 @@
+.content {
+  margin-top: 0 !important;
+}
+#side-nav {
+  background-color: #efe6d1;
+  color: #1e1445;
+}
+#user {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.nav-button,
+.nav-button i {
+  color: #1e1445;
+  font-weight: 800;
+}
+.active {
+  color: #dccaa0;
+  background-color: #1e1445;
+}
+.nav-link:hover {
+  color: #dccaa0 !important;
+  background-color: #1e1445 !important;
+}
+.header {
+  background-image: linear-gradient(to right, #1e1445, #dccaa0);
+  padding: 0.5rem;
+  font-weight: bold;
+  width: 85%;
+  color: #dccaa0;
+  font-size: 1.5rem;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+.card-custom {
+  background-color: #1e1445;
+  color: #efe6d1;
+  padding: 1rem;
+  padding-top: 0px;
+  border-radius: 10px;
+}
+.card-custom h5 {
+  font-size: 1.2rem;
+  color: #1e1445;
+  width: 100%;
+  background-image: linear-gradient(to right, #dccaa0, #1e1445);
+  padding: 0.5rem;
+  font-weight: bold;
+  border-top-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.card-text ul li {
+  font-weight: 400;
+  font-size: 1.05rem;
+}
+.anchor {
+  text-decoration: none;
+  color: #efe6d1;
+}
+.anchor:hover {
+  color: #dccaa0;
+}
+label {
+  color: #efe6d1;
+  font-size: 1.2rem;
+  width: 50%;
+}
+
+/* Button Loader */
+
+.btn-custom {
+  padding: 8px;
+  background: #efe6d1;
+  color: #1e1445;
+}
+.success-btn {
+  background-color: #42ba96 !important;
+  width: 123px;
+  height: 42px;
+  /* color: #000; */
+}
+.error-btn {
+  background-color: #b00020 !important;
+  width: 123px;
+  height: 42px;
+}
+.spinner {
+  width: 123px;
+  height: 24px;
+}
+
+.double-bounce1,
+.double-bounce2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  background-color: #1e1445;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  -webkit-animation: sk-bounce 2s infinite ease-in-out;
+  animation: sk-bounce 2s infinite ease-in-out;
+}
+
+.double-bounce2 {
+  -webkit-animation-delay: -1s;
+  animation-delay: -1s;
+}
+
+@-webkit-keyframes sk-bounce {
+  0%,
+  100% {
+    -webkit-transform: scale(0);
+  }
+  50% {
+    -webkit-transform: scale(1);
+  }
+}
+
+@keyframes sk-bounce {
+  0%,
+  100% {
+    transform: scale(0);
+    -webkit-transform: scale(0);
+  }
+  50% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+  }
+}
+
+input[type="checkbox"] {
+  vertical-align: middle;
+  position: relative;
+  bottom: 2px;
+}
+.form-check-label {
+  width: 100%;
+  display: inline;
+}
+.gri-td {
+  max-width: 500px;
+}

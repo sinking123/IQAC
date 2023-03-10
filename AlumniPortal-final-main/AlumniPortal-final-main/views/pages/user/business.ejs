@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+  <% include ../../layouts/user/user_header %>
+
+  <!-- Update Results Messages Display End-->
+
+  <style>
+    .inv {
+      display: none;
+    }
+    .nav-link {
+      font-weight: bold;
+    }
+
+  </style>
+    <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .mobile-container {
+      background-color: #1e1445;
+      color: white;
+      position: relative;
+      text-align: center;
+    }
+
+    .topnav {
+      overflow: hidden;
+      background-color: #1e1445;
+      position: relative;
+    }
+
+    .topnav #myLinks {
+      display: none;
+    }
+
+    .topnav a {
+      color: white;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+      display: block;
+    }
+
+    .topnav a.icon {
+      background: black;
+      display: block;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    .topnav a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+
+    .active {
+      color: white;
+    }
+
+    @media only screen and (max-width: 1023px) {
+      .topnav {
+        visibility: visible;
+      }
+    }
+    @media only screen and (min-width: 1024px) {
+      .topnav {
+        visibility: hidden;
+      }
+    }
+  </style>
+  <body class="">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="/js/data-download.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <div class="wrapper">
+      <div
+        class="sidebar"
+        data-color="purple"
+        data-background-color="white"
+        data-image="../assets/img/sidebar-1.jpg"
+      >
+        <div class="logo" style="background-color: #efe6d1">
+          <a href="/announcement">
+            <img
+              src="/images/images.png"
+              style="width: 250px; height: 160px; margin-right: 100px"
+            />
+          </a>
+        </div>
+
+        <div class="sidebar-wrapper" style="background-color: #efe6d1">
+          <ul class="nav">
+            <li class="nav-item">
+              <a class="nav-link" href="./user">
+                <i class="material-icons">person</i>
+                <p>User Profile</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/view_users">
+                <i class="material-icons">people</i>
+                <p>View Users</p>
+              </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="./user_business">
+                <i class="material-icons">book</i>
+                <p>Business Directory</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">
+                <i class="material-icons" style="color: red">logout</i>
+                <p style="color: red">Logout</p>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+            <!-- Top Navigation Menu -->
+      <div class="mobile-container">
+        <div class="topnav" style="color: white">
+          <a href="#home" class="active"><h5>Licet ALUMNI</h5></a>
+          <div id="myLinks" style="color: white">
+            <a class="nav-link" href="./user">
+              <i class="material-icons">person</i>
+              <p>User Profile</p>
+            </a>
+            <a class="nav-link" href="/view_users">
+              <i class="material-icons">people</i>
+              <p>View Users</p>
+            </a>
+            <a class="nav-link" href="/user_business">
+              <i class="material-icons">book</i>
+              <p>Business Directory</p>
+            </a>
+            <a class="nav-link" href="/logout">
+              <i class="material-icons" style="color: red">logout</i>
+              <p style="color: red">Logout</p>
+            </a>
+          </div>
+          <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+          </a>
+        </div>
+      </div>
+      <div class="main-panel">
+        <div class="content">
+          <div class="card" style="color: #1e1445; margin-top: -7%">
+            <div
+              class="card-header"
+              style="background-color: #1e1445; color: white !important"
+            >
+              <h2 class="card-title" style="color: white">
+                Business Directory
+              </h2>
+            </div>
+            <div
+              class="card-body"
+              style="align-items: center; justify-content: center"
+            >
+              <br />
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="input-group no-border">
+                    <input
+                      id="myInput"
+                      type="text"
+                      value=""
+                      class="form-control"
+                      placeholder="Search..."
+                    />
+                  </div>
+                </div>
+                <div class="col-md-3 form-group" style="margin-top: -5px">
+                  <label for="year" class="bmd-label-floating"
+                    >Passed out year</label
+                  >
+                  <select name="year" id="year" class="form-control pt-1">
+                    <% for(let v1 in user_details) {%>
+                    <option value="<%=user_details[v1].Year_Passed %>">
+                      <%=user_details[v1].Year_Passed %>
+                    </option>
+                    <%}%>
+                  </select>
+                </div>
+                <div class="col-md-3 form-group" style="margin-top: -5px">
+                  <label for="dept" class="bmd-label-floating"
+                    >Department</label
+                  >
+                  <select name="dept" id="dept" class="form-control pt-1">
+                    <option value="CSE">CSE</option>
+                    <option value="MECH">MECH</option>
+                    <option value="EEE">EEE</option>
+                    <option value="IT">IT</option>
+                    <option value="ECE">ECE</option>
+                  </select>
+                </div>
+
+                <div class="col-md-3">
+                  <button
+                    onclick="myFunction()"
+                    type="submit"
+                    class="btn btn-white btn-round btn-just-icon"
+                    style="
+                      margin-left: 10px;
+                      color: #1e1445;
+                      outline-color: #1e1445;
+                    "
+                  >
+                    <i class="material-icons">search</i>
+                    <div class="ripple-container"></div>
+                  </button>
+                </div>
+              </div>
+              <br /><br />
+              <div class="container" id="myUL">
+                <% for(let v1 in user_details) {%>
+                <!-- User Profiles Container Start -->
+                <div
+                  class="row"
+                  style="align-items: center; justify-content: center"
+                >
+                  <div
+                    class="card card-profile w-75"
+                    style="background-color: #1e1445; color: white !important"
+                  >
+                    <div class="card-avatar">
+                      <a href="javascript:;">
+                        <img class="img" src="/images/faces/no_profile.png" />
+                      </a>
+                    </div>
+                    <div class="card-body" style="color: white">
+                      <h3 class="card-category" style="color: white">
+                        <%=user_details[v1].Name%>
+                      </h3>
+                      <h5 class="card-category" style="color: white">
+                        <%=user_details[v1].Year_of_Entry %> -
+                        <%=user_details[v1].Year_Passed %>
+                      </h5>
+                      <h5 class="card-category" style="color: white">
+                        <%=user_details[v1].Branch %>
+                      </h5>
+                      <p class="card-description" style="color: white">
+                        <%=user_details[v1].Current_Status.toUpperCase() %>
+                      </p>
+                      <p class="card-description" style="color: white">
+                        <% if(user_details[v1].Current_Status == 'Others') {%>
+                        <h5><%=user_details[v1].Others %></h5> <%}%> <%
+                        if(user_details[v1].Current_Status != 'Others') {%>
+                       <h5> <%=user_details[v1].Current_Position.toUpperCase() %> in
+                        <%=user_details[v1].Company_Name.toUpperCase() %> <%}%></h5>
+                      </p>
+                      <p
+                        class="card-description"
+                        style="color: white; font-size: 18px"
+                      >
+                        <a
+                          href="<%=user_details[v1].linkedin_profile%>"
+                          style="color: white !important"
+                        >
+                          <i
+                            class="fab fa-linkedin"
+                            style="font-size: 25px"
+                          ></i
+                        ></a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <%}%>
+                <!-- User Profiles Container End -->
+              </div>
+              <!-- <ul id="myUL">
+                <li><a href="#">Adele</a></li>
+                <li><a href="#">Agnes</a></li>
+
+                <li><a href="#">Billy</a></li>
+                <li><a href="#">Bob</a></li>
+
+                <li><a href="#">Calvin</a></li>
+                <li><a href="#">Christina</a></li>
+                <li><a href="#">Cindy</a></li>
+              </ul> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <% include ../../layouts/user/scripts %>
+
+    <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+    <script src="../assets/demo/demo.js"></script>
+    <script>
+      function myFunction() {
+        // Declare variables
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("myUL");
+        li = ul.getElementsByClassName("row");
+        year_passed = document.getElementById("year").value;
+        dept_value = document.getElementById("dept").value;
+        // Loop through all list items, and hide those who don't match the search query
+
+        for (i = 0; i < li.length; i++) {
+          a = li[i].getElementsByTagName("h3")[0];
+          passed =
+            li[i].getElementsByTagName("h5")[0].textContent ||
+            li[i].getElementsByTagName("h5")[0].innerText;
+
+          dept =
+            li[i].getElementsByTagName("h5")[1].textContent ||
+            li[i].getElementsByTagName("h5")[1].innerText;
+
+          txtValue = a.textContent || a.innerText;
+          if (
+            (txtValue.toUpperCase().indexOf(filter) > -1 &&
+              passed.indexOf(year_passed) > -1 &&
+              dept.indexOf(dept_value) > -1) ||
+            filter == ""
+          ) {
+            li[i].style.display = "";
+          } else {
+            li[i].style.display = "none";
+          }
+        }
+      }
+    </script>
+    <script>
+      document.getElementById("target").addEventListener("change", function () {
+        "use strict";
+        var vis = document.querySelector(".vis"),
+          target = document.getElementById(this.value);
+        if (vis !== null) {
+          vis.className = "inv";
+        }
+        if (target !== null) {
+          target.className = "vis";
+        }
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+        $().ready(function () {
+          $sidebar = $(".sidebar");
+
+          $sidebar_img_container = $sidebar.find(".sidebar-background");
+
+          $full_page = $(".full-page");
+
+          $sidebar_responsive = $("body > .navbar-collapse");
+
+          window_width = $(window).width();
+
+          fixed_plugin_open = $(
+            ".sidebar .sidebar-wrapper .nav li.active a p"
+          ).html();
+
+          if (window_width > 767 && fixed_plugin_open == "Dashboard") {
+            if ($(".fixed-plugin .dropdown").hasClass("show-dropdown")) {
+              $(".fixed-plugin .dropdown").addClass("open");
+            }
+          }
+
+          $(".fixed-plugin a").click(function (event) {
+            // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
+            if ($(this).hasClass("switch-trigger")) {
+              if (event.stopPropagation) {
+                event.stopPropagation();
+              } else if (window.event) {
+                window.event.cancelBubble = true;
+              }
+            }
+          });
+
+          $(".fixed-plugin .active-color span").click(function () {
+            $full_page_background = $(".full-page-background");
+
+            $(this).siblings().removeClass("active");
+            $(this).addClass("active");
+
+            var new_color = $(this).data("color");
+
+            if ($sidebar.length != 0) {
+              $sidebar.attr("data-color", new_color);
+            }
+
+            if ($full_page.length != 0) {
+              $full_page.attr("filter-color", new_color);
+            }
+
+            if ($sidebar_responsive.length != 0) {
+              $sidebar_responsive.attr("data-color", new_color);
+            }
+          });
+
+          $(".fixed-plugin .background-color .badge").click(function () {
+            $(this).siblings().removeClass("active");
+            $(this).addClass("active");
+
+            var new_color = $(this).data("background-color");
+
+            if ($sidebar.length != 0) {
+              $sidebar.attr("data-background-color", new_color);
+            }
+          });
+
+          $(".fixed-plugin .img-holder").click(function () {
+            $full_page_background = $(".full-page-background");
+
+            $(this).parent("li").siblings().removeClass("active");
+            $(this).parent("li").addClass("active");
+
+            var new_image = $(this).find("img").attr("src");
+
+            if (
+              $sidebar_img_container.length != 0 &&
+              $(".switch-sidebar-image input:checked").length != 0
+            ) {
+              $sidebar_img_container.fadeOut("fast", function () {
+                $sidebar_img_container.css(
+                  "background-image",
+                  'url("' + new_image + '")'
+                );
+                $sidebar_img_container.fadeIn("fast");
+              });
+            }
+
+            if (
+              $full_page_background.length != 0 &&
+              $(".switch-sidebar-image input:checked").length != 0
+            ) {
+              var new_image_full_page = $(".fixed-plugin li.active .img-holder")
+                .find("img")
+                .data("src");
+
+              $full_page_background.fadeOut("fast", function () {
+                $full_page_background.css(
+                  "background-image",
+                  'url("' + new_image_full_page + '")'
+                );
+                $full_page_background.fadeIn("fast");
+              });
+            }
+
+            if ($(".switch-sidebar-image input:checked").length == 0) {
+              var new_image = $(".fixed-plugin li.active .img-holder")
+                .find("img")
+                .attr("src");
+              var new_image_full_page = $(".fixed-plugin li.active .img-holder")
+                .find("img")
+                .data("src");
+
+              $sidebar_img_container.css(
+                "background-image",
+                'url("' + new_image + '")'
+              );
+              $full_page_background.css(
+                "background-image",
+                'url("' + new_image_full_page + '")'
+              );
+            }
+
+            if ($sidebar_responsive.length != 0) {
+              $sidebar_responsive.css(
+                "background-image",
+                'url("' + new_image + '")'
+              );
+            }
+          });
+
+          $(".switch-sidebar-image input").change(function () {
+            $full_page_background = $(".full-page-background");
+
+            $input = $(this);
+
+            if ($input.is(":checked")) {
+              if ($sidebar_img_container.length != 0) {
+                $sidebar_img_container.fadeIn("fast");
+                $sidebar.attr("data-image", "#");
+              }
+
+              if ($full_page_background.length != 0) {
+                $full_page_background.fadeIn("fast");
+                $full_page.attr("data-image", "#");
+              }
+
+              background_image = true;
+            } else {
+              if ($sidebar_img_container.length != 0) {
+                $sidebar.removeAttr("data-image");
+                $sidebar_img_container.fadeOut("fast");
+              }
+
+              if ($full_page_background.length != 0) {
+                $full_page.removeAttr("data-image", "#");
+                $full_page_background.fadeOut("fast");
+              }
+
+              background_image = false;
+            }
+          });
+
+          $(".switch-sidebar-mini input").change(function () {
+            $body = $("body");
+
+            $input = $(this);
+
+            if (md.misc.sidebar_mini_active == true) {
+              $("body").removeClass("sidebar-mini");
+              md.misc.sidebar_mini_active = false;
+
+              $(".sidebar .sidebar-wrapper, .main-panel").perfectScrollbar();
+            } else {
+              $(".sidebar .sidebar-wrapper, .main-panel").perfectScrollbar(
+                "destroy"
+              );
+
+              setTimeout(function () {
+                $("body").addClass("sidebar-mini");
+
+                md.misc.sidebar_mini_active = true;
+              }, 300);
+            }
+
+            // we simulate the window Resize so the charts will get updated in realtime.
+            var simulateWindowResize = setInterval(function () {
+              window.dispatchEvent(new Event("resize"));
+            }, 180);
+
+            // we stop the simulation of Window Resize after the animations are completed
+            setTimeout(function () {
+              clearInterval(simulateWindowResize);
+            }, 1000);
+          });
+        });
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+        //init DateTimePickers
+        md.initFormExtendedDatetimepickers();
+      });
+    </script>
+        <script>
+      function myFunction() {
+        var x = document.getElementById("myLinks");
+        if (x.style.display === "block") {
+          x.style.display = "none";
+        } else {
+          x.style.display = "block";
+        }
+      }
+    </script>
+  </body>
+</html>

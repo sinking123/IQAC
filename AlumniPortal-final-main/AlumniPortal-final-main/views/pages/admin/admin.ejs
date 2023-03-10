@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Admin | Alumni Portal</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <!--     Fonts and icons     -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"
+    />
+    <!-- Material Kit CSS -->
+    <link href="assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/1.1.0/css/bootstrap-multiselect.css"
+      integrity="sha512-pm6bIGBaVqqeD3vbSnAnI4/zOtmGKlY1nflBSJ3s3Y/cTjSkjekLc3FlYJ7hJebfCtpB/P7fLGhadWr2IuhAsg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <!-- <link rel="apple-touch-icon" href="assets/img/ALUMNI-logo.png"> -->
+    <link rel="icon" href="/images/images.png" />
+    <link href="assets/css/style.css" rel="stylesheet" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="/js/data-download.js"></script>
+  </head>
+
+  <body>
+    <style>
+      .table-wrapper {
+        width: 100%;
+        overflow-x: scroll;
+      }
+      /* Style the navigation menu */
+      .topnav {
+        overflow: hidden;
+        background-color: #333;
+        position: relative;
+      }
+
+      /* Hide the links inside the navigation menu (except for logo/home) */
+      .topnav #myLinks {
+        display: none;
+      }
+
+      /* Style navigation menu links */
+      .topnav a {
+        color: white;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+        display: block;
+      }
+
+      /* Style the hamburger menu */
+      .topnav a.icon {
+        background: black;
+        display: block;
+        position: absolute;
+        right: 90%;
+        top: 0;
+      }
+
+      /* Add a grey background color on mouse-over */
+      .topnav a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+    </style>
+    <script>
+      function filter() {
+        let batch = document.getElementById("batch-det").value;
+        // alert(batch);
+        batches_json = {
+          "12-16": "2012 - 2016",
+          "13-17": "2013 - 2017",
+          "11-15": "2011 - 2015",
+          "14-18": "2014 - 2018",
+          "18-22": "2018 - 2022",
+          "15-19": "2015 - 2019",
+          "16-20": "2016 - 2020",
+          "17-21": "2017 - 2021",
+          "19-23": "2019 - 2023",
+          "10-14": "2010 - 2014",
+        };
+        // alert(batches_json[batch]);
+        let dept = document.getElementById("dept-det").value;
+        let table = document.getElementById("alu-tab-down");
+        tr = table.getElementsByTagName("tr");
+        // alert(batch);alert(dept)
+        if (dept == "all") {
+          console.log("no check");
+        } else if (dept != "all") {
+          for (i = 1; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[2];
+            if (td) {
+              txtValue = td.textContent || td.innerText;
+              if (txtValue.toUpperCase().indexOf(dept) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+            }
+          }
+        }
+        if (batch != "all") {
+          // alert(batches_json[batch]);
+          for (i = 1; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[3];
+            if (td) {
+              txtValue = td.textContent || td.innerText;
+              if (txtValue.indexOf(batches_json[batch]) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <!-- Messages Display Start -->
+    <% if(result == 1) { %>
+    <script>
+      swal("SUCCESS", "Announcement Created !!", "success");
+    </script>
+    <%}%> <% if(result == 2) {%>
+    <script>
+      swal("Error", "Some Error Occured !!", "error");
+    </script>
+    <%}%>
+    <div class="wrapper">
+      <div class="sidebar">
+        <div class="logo">
+          <div class="d-flex justify-content-center">
+            <img src="/images/images.png" class="img-fluid" alt="" />
+          </div>
+          <div class="simple-text" id="user">Admin</div>
+        </div>
+        <div class="sidebar-wrapper">
+          <ul class="nav">
+            <li class="nav-item active nav-button">
+              <a class="nav-link" href="#" id="dash-btn">
+                <i class="material-icons">dashboard</i>
+                <p>Dashboard</p>
+              </a>
+            </li>
+            <li class="nav-item nav-button">
+              <a class="nav-link" href="#" id="alu-dtl-btn">
+                <i class="material-icons">folder</i>
+                <p>Alumni Details</p>
+              </a>
+            </li>
+            <li class="nav-item nav-button">
+              <a class="nav-link" href="#" id="alu-annc-btn">
+                <i class="material-icons">campaign</i>
+                <p>Announcements</p>
+              </a>
+            </li>
+            <li class="nav-item nav-button">
+              <a class="nav-link" href="#" id="grievance-btn">
+                <i class="material-icons">sticky_note_2</i>
+                <p>Testimonial</p>
+              </a>
+            </li>
+            <li class="nav-item nav-button">
+              <a href="/logout" class="nav-link" id="alu-annc-btn">
+                <i class="material-icons" style="color: red">logout</i>
+                <p style="color: red">Logout</p>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="main-panel">
+        <div class="content">
+          <div class="container-fluid">
+            <!-- your content here -->
+            <div id="dashboard">
+              <div class="header" style="width: 1230px">DASHBOARD</div>
+
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="card card-custom">
+                    <div class="card-body">
+                      <h5 class="card-title">Alumni Statistics</h5>
+                      <div class="card-text">
+                        <ul>
+                          <li class="pt-2">
+                            Total Alumni : <%=stats.alumni %>
+                          </li>
+                          <li class="pt-2">
+                            Alumni Registered : <%=stats.registered %>
+                          </li>
+                          <li class="pt-2">
+                            Alumni Verified : <%=stats.unregistered %>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="card card-custom">
+                    <div class="card-body">
+                      <h5 class="card-title">Recent Registrations</h5>
+                      <div class="card-text">
+                        <% for(let inx in stats.recent_registrations) {%>
+                        <ul>
+                          <li class="pt-2">
+                            <%= stats.recent_registrations[inx].Name %> <%=
+                            stats.recent_registrations[inx].Register_Number%>
+                          </li>
+                        </ul>
+                        <%}%>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="card card-custom">
+                    <div class="card-body">
+                      <h5 class="card-title">Contact Alumni</h5>
+                      <div class="card-text">
+                        <ul>
+                          <li class="pt-2">
+                            <a href="#" id="alu-det-lk" class="anchor"
+                              >Alumni Details</a
+                            >
+                          </li>
+                          <li class="pt-2">
+                            <a href="#" id="alu-annc-lk" class="anchor"
+                              >Announcements</a
+                            >
+                          </li>
+                          <li class="pt-2">
+                            <a href="#" id="grievance-btn" class="anchor"
+                              >Testimonial</a
+                            >
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="alumni-details" class="d-none">
+              <div class="header" style="width: 1230px">ALUMNI DETAILS</div>
+
+              <div class="card card-custom">
+                <div class="card-body">
+                  <!-- <h5 class="card-title ">Alumni Statistics</h5> -->
+                  <div class="card-text">
+                    <form id="alum-det">
+                      <div class="row">
+                        <div class="col-12 col-lg-6">
+                          <div class="form-group">
+                            <label class="font-weight-bold" for="batch-det">
+                              Batch
+                            </label>
+                            <select
+                              class="form-control"
+                              id="batch-det"
+                            ></select>
+                          </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                          <div class="form-group">
+                            <label class="font-weight-bold" for="dept-det">
+                              Department
+                            </label>
+                            <select class="form-control" id="dept-det">
+                              <option disabled selected value>
+                                Select Department
+                              </option>
+                              <option value="all">All Departments</option>
+                              <option value="CSE">
+                                Computer Science Engineering
+                              </option>
+                              <option value="IT">Information Technology</option>
+                              <option value="ECE">
+                                Electonics and Communication Engineering
+                              </option>
+                              <option value="EEE">
+                                Electrical and Electronics Engineering
+                              </option>
+                              <option value="MECH">
+                                Mechanical Engineering
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group d-flex justify-content-end">
+                        <button
+                          onclick="filter()"
+                          class="btn btn-custom font-weight-bold"
+                          id="view-alumni"
+                        >
+                          View Alumni
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="table-wrapper">
+                <div class="container" id="alu-det-table">
+                  <table
+                    class="table table-striped table-bordered table-responsive-lg"
+                    id="alu-tab-down"
+                    style="
+                      align-items: center;
+                      text-align: center;
+                      overflow: scroll;
+                      width: 100%;
+                    "
+                  >
+                    <tr>
+                      <th>Register No</th>
+                      <th>Name</th>
+                      <th>Department</th>
+                      <th>Batch of Study</th>
+                      <th>Email ID</th>
+                      <th>Mobile Number</th>
+                      <th>DOB</th>
+                      <th>LinkedIn Profile</th>
+                      <th>Current Status</th>
+                      <th>Designation</th>
+                      <th>Company_Name</th>
+                      <th>Work Domain</th>
+                      <th>Company Address</th>
+                      <th>Course Name</th>
+                      <th>University Name</th>
+                      <th>Others</th>
+                    </tr>
+                    <% for(let v1 in stats.alumni_details) {%>
+                    <tr>
+                      <td><%= stats.alumni_details[v1].Register_Number%></td>
+                      <td><%= stats.alumni_details[v1].Name%></td>
+                      <td><%= stats.alumni_details[v1].Branch%></td>
+                      <td>
+                        <%= stats.alumni_details[v1].Year_of_Entry%> - <%=
+                        stats.alumni_details[v1].Year_Passed%>
+                      </td>
+                      <td><%= stats.alumni_details[v1].Email_ID%></td>
+                      <td><%= stats.alumni_details[v1].Mobile_Number%></td>
+                      <td>
+                        <%= stats.alumni_details[v1].DOB.getDate()%>/<%=
+                        stats.alumni_details[v1].DOB.getMonth()%>/<%=
+                        stats.alumni_details[v1].DOB.getFullYear()%>
+                      </td>
+                      <td>
+                        <a href="<%=stats.alumni_details[v1].linkedin_profile%>"
+                          ><%=stats.alumni_details[v1].linkedin_profile%></a
+                        >
+                      </td>
+                      <td><%= stats.alumni_details[v1].Current_Status%></td>
+                      <td><%= stats.alumni_details[v1].Designation%></td>
+                      <td><%= stats.alumni_details[v1].Company_Name%></td>
+                      <td><%= stats.alumni_details[v1].Work_Domain%></td>
+                      <td><%= stats.alumni_details[v1].Company_Address%></td>
+                      <td><%= stats.alumni_details[v1].Course_Name%></td>
+                      <td><%= stats.alumni_details[v1].University_Name%></td>
+                      <td><%= stats.alumni_details[v1].Others%></td>
+                    </tr>
+                    <%}%>
+                  </table>
+                </div>
+              </div>
+              <div class="form-group d-flex justify-content-end">
+                <button
+                  type="submit"
+                  class="btn btn-custom font-weight-bold"
+                  id="download-alumni"
+                >
+                  Download Excel
+                </button>
+              </div>
+            </div>
+            <div id="alumni-announcements" class="d-none">
+              <div class="header" style="width: 1230px">
+                ANNOUNCEMENTS FOR ALUMNI
+                <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+              </div>
+
+              <div class="card card-custom">
+                <div class="card-body">
+                  <!-- <h5 class="card-title ">Alumni Statistics</h5> -->
+                  <div class="card-text">
+                    <form
+                      id="alum-annc"
+                      method="POST"
+                      action="/create_announcement"
+                    >
+                      <div class="form-group">
+                        <label for="title-annc" class="font-weight-bold"
+                          >Title</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="title"
+                          name="title"
+                          placeholder="Title"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="description-annc" class="font-weight-bold"
+                          >Description</label
+                        >
+                        <textarea
+                          class="form-control"
+                          id="description"
+                          name="description"
+                          placeholder="Description"
+                          rows="30"
+                        ></textarea>
+                      </div>
+                      <div class="form-group d-flex justify-content-end">
+                        <button
+                          type="submit"
+                          class="btn btn-custom font-weight-bold"
+                        >
+                          Announce Alumni
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="grievance" class="d-none">
+              <div class="header" style="width: 1230px">Testimonials</div>
+              <div id="grievance-table">
+                <table class="table table-borderless table-sm">
+                  <tr>
+                    <th>Date</th>
+                    <th>Register_Number</th>
+                    <th>Title</th>
+                    <th>Testimonial</th>
+                  </tr>
+
+                  <% if(stats.testimonial.length == 0){%>
+                  <tr>
+                    <td class="gri-td"><b>No Testimonials</b></td>
+                    <td class="gri-td"></td>
+                    <td class="gri-td"></td>
+                    <td class="gri-td"></td>
+                  </tr>
+                  <%}%> <% if(stats.testimonial.length !=0) {%> <% for(let v1 in
+                  stats.testimonial) {%>
+
+                  <tr>
+                    <td class="gri-td">
+                      <%=stats.testimonial[v1].Date.toDateString()%>
+                    </td>
+                    <td class="gri-td">
+                      <%=stats.testimonial[v1].Register_Number%>
+                    </td>
+                    <td class="gri-td"><%=stats.testimonial[v1].Title%></td>
+                    <td class="gri-td">
+                      <%=stats.testimonial[v1].Description%>
+                    </td>
+                  </tr>
+                  <%}%><%}%>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dependencies -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/gh/linways/table-to-excel@v1.0.4/dist/tableToExcel.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        $("#alu-tab-down").DataTable({
+          scrollX: true,
+        });
+        $(".dataTables_length").addClass("bs-select");
+      });
+    </script>
+
+    <script>
+      $("#download-alumni").on("click", function (e) {
+        TableToExcel.convert(document.getElementById("alu-tab-down"), {
+          name: "alumni-data.xlsx",
+          sheet: {
+            name: "Sheet 1",
+          },
+        });
+      });
+    </script>
+
+    <script src="assets/js/alumni-details.js"></script>
+    <script src="assets/js/alumni-annc.js"></script>
+    <script src="assets/js/grievance.js"></script>
+    <script src="assets/js/page-router.js"></script>
+  </body>
+</html>

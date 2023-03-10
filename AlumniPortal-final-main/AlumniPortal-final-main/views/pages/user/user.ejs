@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+  <% include ../../layouts/user/user_header %>
+
+  <!-- Update Results Messages Display End-->
+
+  <style>
+    .inv {
+      display: none;
+    }
+    .radio {
+      background: #1e1445;
+      padding: 4px;
+      border-radius: 3px;
+      box-shadow: inset 0 0 0 3px rgba(35, 33, 45, 0.3), 0 0 0 3px #1e1445;
+      position: relative;
+    }
+
+    .radio input {
+      width: auto;
+      height: 100%;
+      appearance: none;
+      outline: none;
+      cursor: pointer;
+      border-radius: 2px;
+      padding: 4px 8px;
+      background: #1e1445;
+      color: white;
+      font-size: 14px;
+      font-family: "Montserrat", sans-serif;
+      transition: all 100ms linear;
+    }
+
+    .radio input:checked {
+      background-image: linear-gradient(180deg, #95d891, #74bbad);
+      color: #fff;
+      box-shadow: 0 1px 1px #0000002e;
+      text-shadow: 0 1px 0px #79485f7a;
+    }
+
+    .radio input:before {
+      content: attr(label);
+      display: inline-block;
+      text-align: center;
+      width: 100%;
+    }
+    .nav-link {
+      font-weight: bold;
+    }
+  </style>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .mobile-container {
+      background-color: #1e1445;
+      color: white;
+      position: relative;
+      text-align: center;
+    }
+
+    .topnav {
+      overflow: hidden;
+      background-color: #1e1445;
+      position: relative;
+    }
+
+    .topnav #myLinks {
+      display: none;
+    }
+
+    .topnav a {
+      color: white;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+      display: block;
+    }
+
+    .topnav a.icon {
+      background: black;
+      display: block;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    .topnav a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+
+    .active {
+      color: white;
+    }
+
+    @media only screen and (max-width: 1023px) {
+      .topnav {
+        visibility: visible;
+      }
+    }
+    @media only screen and (min-width: 1024px) {
+      .topnav {
+        visibility: hidden;
+      }
+    }
+  </style>
+  <body class="">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- Update Results Messages Display Start -->
+    <% if(update_result == 1) { %>
+    <script>
+      swal("SUCCESS", "Updated Changes !!", "success");
+    </script>
+    <%}%> <% if(update_result == 2) {%>
+    <script>
+      swal("Error", "Some Error Occured !!", "error");
+    </script>
+    <%}%>
+    <div class="wrapper">
+      <div
+        class="sidebar"
+        data-color="purple"
+        data-background-color="white"
+        data-image="../assets/img/sidebar-1.jpg"
+      >
+        <div class="logo" style="background-color: #efe6d1">
+          <a href="/announcement">
+            <img
+              src="/images/images.png"
+              style="width: 250px; height: 160px; margin-right: 100px"
+            />
+          </a>
+        </div>
+
+        <div class="sidebar-wrapper" style="background-color: #efe6d1">
+          <ul class="nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="./user">
+                <i class="material-icons">person</i>
+                <p>User Profile</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/view_users">
+                <i class="material-icons">people</i>
+                <p>View Users</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/user_business">
+                <i class="material-icons">book</i>
+                <p>Business Directory</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout">
+                <i class="material-icons" style="color: red">logout</i>
+                <p style="color: red">Logout</p>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- Top Navigation Menu -->
+      <div class="mobile-container">
+        <div class="topnav" style="color: white">
+          <a href="#home" class="active"><h5>Licet ALUMNI</h5></a>
+          <div id="myLinks" style="color: white">
+            <a class="nav-link" href="./user">
+              <i class="material-icons">person</i>
+              <p>User Profile</p>
+            </a>
+            <a class="nav-link" href="/view_users">
+              <i class="material-icons">people</i>
+              <p>View Users</p>
+            </a>
+            <a class="nav-link" href="/user_business">
+              <i class="material-icons">book</i>
+              <p>Business Directory</p>
+            </a>
+            <a class="nav-link" href="/logout">
+              <i class="material-icons" style="color: red">logout</i>
+              <p style="color: red">Logout</p>
+            </a>
+          </div>
+          <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="main-panel">
+        <div class="content">
+          <div class="card" style="color: #1e1445; margin-top: -7%">
+            <div
+              class="card-header"
+              style="background-color: #1e1445; color: white !important"
+            >
+              <h2 class="card-title" style="color: white">Edit Profile</h2>
+            </div>
+            <div class="card-body">
+              <form action="/update_user" method="POST">
+                <!-- Personal Details Start -->
+                <b><h3>Personal Details</h3></b>
+
+                <div class="row">
+                  <!-- Name Input Start -->
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label>Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="Name"
+                        id="Name"
+                        value="<%=user_results.Name%>"
+                      />
+                    </div>
+                  </div>
+                  <!-- Name Input End -->
+
+                  <!-- Gender Input Start -->
+                  <div class="col-md-4">
+                    <div class="form-group" style="margin-top: 2px">
+                      <label>Gender</label>
+                      <select class="form-control" id="gender" name="gender">
+                        <option value=""></option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="others">Others</option>
+                      </select>
+                    </div>
+                  </div>
+                  <!-- Gender Input End -->
+
+                  <!-- Password Input Start -->
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label>Password</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="password"
+                        id="password"
+                        value="<%=user_results.Password%>"
+                      />
+                    </div>
+                  </div>
+                  <!-- Password Input End -->
+                </div>
+                <div class="row">
+                  <!-- Email address Start -->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Email address</label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        name="email_id"
+                        id="email_id"
+                        value="<%=user_results.Email_Id%>"
+                      />
+                    </div>
+                  </div>
+                  <!-- Email address end -->
+                  <!-- Contact No Start -->
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Contact No</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="mobile_no"
+                        id="mobile_no"
+                        value="<%=user_results.Mobile_Number%>"
+                      />
+                    </div>
+                  </div>
+                  <!-- Contact No end -->
+                </div>
+                <br />
+                <!-- Personal Details End -->
+
+                <b><h3>Academic Details</h3></b><br />
+                <!-- Academic Details Start -->
+                <div class="row">
+                  <!-- Course Start -->
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label>Course</label>
+                      <select class="form-control" id="course" name="course">
+                        <option value="<%=user_results.Course%>">
+                          <%=user_results.Course%>
+                        </option>
+                        <option value="B.E">B.E</option>
+                        <option value="B.Tech">B.Tech</option>
+                      </select>
+                    </div>
+                  </div>
+                  <!-- Course End -->
+
+                  <!-- Department Start -->
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label>Department</label>
+                      <select
+                        class="form-control"
+                        id="department"
+                        name="department"
+                      >
+                        <option value="<%=user_results.Branch%>">
+                          <%=user_results.Branch %>
+                        </option>
+                        <option value="CSE">CSE</option>
+                        <option value="MECH">MECH</option>
+                        <option value="IT">IT</option>
+                        <option value="ECE">ECE</option>
+                        <option value="EEE">EEE</option>
+                      </select>
+                    </div>
+                  </div>
+                  <!-- Department End -->
+
+                  <!-- Year of Entry Start -->
+                  <div class="col-md-2" style="margin-top: 0.5%">
+                    <div class="form-group">
+                      <label>Year of Entry</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="year_of_entry"
+                        id="year_of_entry"
+                        value="<%=user_results.Year_of_Entry%>"
+                      />
+                    </div>
+                    <script type="text/javascript">
+                      $(document).ready(function () {
+                        $("#year_of_entry").datepicker({
+                          minViewMode: "years",
+                          autoclose: true,
+                          format: "yyyy",
+                        });
+                      });
+                    </script>
+                  </div>
+                  <!-- Year of Entry End -->
+
+                  <!-- Year of Passed Start -->
+                  <div class="col-md-2" style="margin-top: 0.4%">
+                    <div class="form-group">
+                      <label>Year Passed</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="year_passed"
+                        id="year_passed"
+                        value="<%=user_results.Year_Passed%>"
+                      />
+                    </div>
+                    <script type="text/javascript">
+                      $(document).ready(function () {
+                        $("#year_passed").datepicker({
+                          minViewMode: "years",
+                          autoclose: true,
+                          format: "yyyy",
+                        });
+                      });
+                    </script>
+                  </div>
+                  <!-- Year of Passed End -->
+                </div>
+                <!-- Academic Details End -->
+
+                <br /><br />
+                <b><h3>Current Status</h3></b><br />
+
+                <!-- Current Status Option Start-->
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="control-label">Current position</label>
+                      <select
+                        id="target"
+                        class="form-control pt-1"
+                        name="current_status"
+                        id="current_status"
+                      >
+                        <option value="">Select the appropriate option</option>
+                        <option value="1">Working</option>
+                        <option value="2">Studying</option>
+                        <option value="3">Entrepreneur</option>
+                        <option value="4">Others</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <!-- Current Status Option End -->
+
+                <!-- Current Status Start -->
+
+                <!-- Working Form Start-->
+                <br />
+                <div id="1" class="inv">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="bmd-label-floating">Designation</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="designation_working"
+                          id="designation_working"
+                          value="<%=user_results.Designation%>"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="bmd-label-floating">Work Domain</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="workdomain_working"
+                          id="workdomain_working"
+                          value="<%=user_results.Word_Domain%>"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Company Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="company_name_working"
+                          id="company_name_working"
+                          value="<%=user_results.Company_Name%>"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="bmd-label-floating"
+                          >Company Address</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="company_address_working"
+                          id="company_address_working"
+                          value="<%=user_results.Company_Address%>"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Working Form End -->
+
+                <!-- Studying Form Start-->
+                <div id="2" class="inv">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="bmd-label-floating"
+                          >Name of the Course</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="course_name_studying"
+                          id="course_name_studying"
+                          value="<%=user_results.Course_Name%>"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="bmd-label-floating"
+                          >Name of the Institution</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="university_name_studying"
+                          id="university_name_studying"
+                          value="<%=user_results.University_Name%>"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="bmd-label-floating">Location</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="institute_location_studying"
+                          id="institute_location_studying"
+                          value="<%=user_results.Company_Address%>"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Studying Form End -->
+
+                <!-- Enterpreneur Form Start -->
+                <div id="3" class="inv">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="bmd-label-floating">Designation</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="designation_ent"
+                          id="designation_ent"
+                          value="<%=user_results.Designation%>"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="bmd-label-floating">Work Domain</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="workdomain_ent"
+                          id="workdomain_ent"
+                          value="<%=user_results.Work_Domain%>"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="bmd-label-floating">Company Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="company_name_ent"
+                          id="company_name_ent"
+                          value="<%=user_results.Company_Name%>"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="bmd-label-floating"
+                          >Company Address</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="company_address_ent"
+                          id="company_address_ent"
+                          value="<%=user_results.Company_Address%>"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Enterpreneur Form End -->
+
+                <!-- Others Form Start -->
+                <div id="4" class="inv">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class="bmd-label-floating"
+                          >Specify your Status</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="others"
+                          id="others"
+                          value="<%=user_results.Others%>"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Others Form End -->
+
+                <br /><br />
+                <h3>Testimonial</h3>
+                <div class="form-group" style="margin-top: 2%">
+                  <label class="bmd-label-floating">Title</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="testimonial_title"
+                    id="testimonial_title"
+                    value="<%=user_results.Title%>"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label class="bmd-label-floating">Description</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="testimonial_desc"
+                    id="testimonial_desc"
+                    value="<%=user_results.Description%>"
+                  />
+                </div>
+
+                <!-- Current Status End -->
+                <button
+                  type="submit"
+                  class="btn btn-primary pull-right"
+                  style="background-color: #1e1445"
+                >
+                  Update Profile
+                </button>
+                <div class="clearfix"></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <% include ../../layouts/user/scripts %>
+
+    <!-- Material Dashboard DEMO methods, don't include it in your project! -->
+    <script src="../assets/demo/demo.js"></script>
+    <script>
+      document.getElementById("target").addEventListener("change", function () {
+        "use strict";
+        var vis = document.querySelector(".vis"),
+          target = document.getElementById(this.value);
+        if (vis !== null) {
+          vis.className = "inv";
+        }
+        if (target !== null) {
+          target.className = "vis";
+        }
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+        $().ready(function () {
+          $sidebar = $(".sidebar");
+
+          $sidebar_img_container = $sidebar.find(".sidebar-background");
+
+          $full_page = $(".full-page");
+
+          $sidebar_responsive = $("body > .navbar-collapse");
+
+          window_width = $(window).width();
+
+          fixed_plugin_open = $(
+            ".sidebar .sidebar-wrapper .nav li.active a p"
+          ).html();
+
+          if (window_width > 767 && fixed_plugin_open == "Dashboard") {
+            if ($(".fixed-plugin .dropdown").hasClass("show-dropdown")) {
+              $(".fixed-plugin .dropdown").addClass("open");
+            }
+          }
+
+          $(".fixed-plugin a").click(function (event) {
+            // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
+            if ($(this).hasClass("switch-trigger")) {
+              if (event.stopPropagation) {
+                event.stopPropagation();
+              } else if (window.event) {
+                window.event.cancelBubble = true;
+              }
+            }
+          });
+
+          $(".fixed-plugin .active-color span").click(function () {
+            $full_page_background = $(".full-page-background");
+
+            $(this).siblings().removeClass("active");
+            $(this).addClass("active");
+
+            var new_color = $(this).data("color");
+
+            if ($sidebar.length != 0) {
+              $sidebar.attr("data-color", new_color);
+            }
+
+            if ($full_page.length != 0) {
+              $full_page.attr("filter-color", new_color);
+            }
+
+            if ($sidebar_responsive.length != 0) {
+              $sidebar_responsive.attr("data-color", new_color);
+            }
+          });
+
+          $(".fixed-plugin .background-color .badge").click(function () {
+            $(this).siblings().removeClass("active");
+            $(this).addClass("active");
+
+            var new_color = $(this).data("background-color");
+
+            if ($sidebar.length != 0) {
+              $sidebar.attr("data-background-color", new_color);
+            }
+          });
+
+          $(".fixed-plugin .img-holder").click(function () {
+            $full_page_background = $(".full-page-background");
+
+            $(this).parent("li").siblings().removeClass("active");
+            $(this).parent("li").addClass("active");
+
+            var new_image = $(this).find("img").attr("src");
+
+            if (
+              $sidebar_img_container.length != 0 &&
+              $(".switch-sidebar-image input:checked").length != 0
+            ) {
+              $sidebar_img_container.fadeOut("fast", function () {
+                $sidebar_img_container.css(
+                  "background-image",
+                  'url("' + new_image + '")'
+                );
+                $sidebar_img_container.fadeIn("fast");
+              });
+            }
+
+            if (
+              $full_page_background.length != 0 &&
+              $(".switch-sidebar-image input:checked").length != 0
+            ) {
+              var new_image_full_page = $(".fixed-plugin li.active .img-holder")
+                .find("img")
+                .data("src");
+
+              $full_page_background.fadeOut("fast", function () {
+                $full_page_background.css(
+                  "background-image",
+                  'url("' + new_image_full_page + '")'
+                );
+                $full_page_background.fadeIn("fast");
+              });
+            }
+
+            if ($(".switch-sidebar-image input:checked").length == 0) {
+              var new_image = $(".fixed-plugin li.active .img-holder")
+                .find("img")
+                .attr("src");
+              var new_image_full_page = $(".fixed-plugin li.active .img-holder")
+                .find("img")
+                .data("src");
+
+              $sidebar_img_container.css(
+                "background-image",
+                'url("' + new_image + '")'
+              );
+              $full_page_background.css(
+                "background-image",
+                'url("' + new_image_full_page + '")'
+              );
+            }
+
+            if ($sidebar_responsive.length != 0) {
+              $sidebar_responsive.css(
+                "background-image",
+                'url("' + new_image + '")'
+              );
+            }
+          });
+
+          $(".switch-sidebar-image input").change(function () {
+            $full_page_background = $(".full-page-background");
+
+            $input = $(this);
+
+            if ($input.is(":checked")) {
+              if ($sidebar_img_container.length != 0) {
+                $sidebar_img_container.fadeIn("fast");
+                $sidebar.attr("data-image", "#");
+              }
+
+              if ($full_page_background.length != 0) {
+                $full_page_background.fadeIn("fast");
+                $full_page.attr("data-image", "#");
+              }
+
+              background_image = true;
+            } else {
+              if ($sidebar_img_container.length != 0) {
+                $sidebar.removeAttr("data-image");
+                $sidebar_img_container.fadeOut("fast");
+              }
+
+              if ($full_page_background.length != 0) {
+                $full_page.removeAttr("data-image", "#");
+                $full_page_background.fadeOut("fast");
+              }
+
+              background_image = false;
+            }
+          });
+
+          $(".switch-sidebar-mini input").change(function () {
+            $body = $("body");
+
+            $input = $(this);
+
+            if (md.misc.sidebar_mini_active == true) {
+              $("body").removeClass("sidebar-mini");
+              md.misc.sidebar_mini_active = false;
+
+              $(".sidebar .sidebar-wrapper, .main-panel").perfectScrollbar();
+            } else {
+              $(".sidebar .sidebar-wrapper, .main-panel").perfectScrollbar(
+                "destroy"
+              );
+
+              setTimeout(function () {
+                $("body").addClass("sidebar-mini");
+
+                md.misc.sidebar_mini_active = true;
+              }, 300);
+            }
+
+            // we simulate the window Resize so the charts will get updated in realtime.
+            var simulateWindowResize = setInterval(function () {
+              window.dispatchEvent(new Event("resize"));
+            }, 180);
+
+            // we stop the simulation of Window Resize after the animations are completed
+            setTimeout(function () {
+              clearInterval(simulateWindowResize);
+            }, 1000);
+          });
+        });
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+        //init DateTimePickers
+        md.initFormExtendedDatetimepickers();
+      });
+    </script>
+    <script>
+      $('INPUT[type="file"]').change(function () {
+        var ext = this.value.match(/\.(.+)$/)[1];
+        switch (ext) {
+          case "jpg":
+          case "jpeg":
+          case "png":
+          case "gif":
+            console.log("god");
+            break;
+          default:
+            alert("This is not an allowed file type.");
+            this.value = "";
+        }
+      });
+    </script>
+    <script>
+      window.onload = function (e) {
+        let current_choice = "<%=user_results.Visibility_Status%>";
+        // console.log("Choice", current_choice);
+        if (current_choice == "1") {
+          document.getElementById("male").checked = true;
+        } else {
+          document.getElementById("female").checked = true;
+        }
+      };
+    </script>
+    <script>
+      function myFunction() {
+        var x = document.getElementById("myLinks");
+        if (x.style.display === "block") {
+          x.style.display = "none";
+        } else {
+          x.style.display = "block";
+        }
+      }
+    </script>
+  </body>
+</html>
